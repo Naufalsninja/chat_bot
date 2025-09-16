@@ -1,0 +1,205 @@
+/* --- Import Font (Opsional tapi direkomendasikan) --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* --- Animasi --- */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Variabel Warna & Style Global --- */
+:root {
+  --bg-color: #f4f7f9;
+  --container-bg: #ffffff;
+  --header-bg: #ffffff;
+  --user-bubble-bg: #007aff;
+  --bot-bubble-bg: #e9e9eb;
+  --text-primary: #1c1c1e;
+  --text-secondary: #8a8a8e;
+  --input-bg: #f0f0f0;
+  --border-color: #e1e1e1;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Container Utama Chatbot --- */
+.chatbot-container {
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  max-width: 450px; /* Ukuran lebih ramping */
+  height: 85vh; /* Tinggi yang pas di layar */
+  max-height: 700px;
+  margin: 2rem auto;
+  background-color: var(--container-bg);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  display: flex; /* KUNCI: Menggunakan Flexbox untuk layout */
+  flex-direction: column; /* Mengatur anak elemen secara vertikal */
+  overflow: hidden; /* Mencegah konten keluar dari border-radius */
+}
+
+/* --- Header --- */
+.chatbot-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--header-bg);
+  text-align: center;
+}
+
+.chatbot-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.chatbot-subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+
+/* --- Area Pesan (Bagian Paling Penting untuk Layout) --- */
+.chatbot-messages {
+  flex: 1; /* KUNCI: Membuat area ini mengisi semua ruang yang tersedia */
+  overflow-y: auto; /* KUNCI: Menambahkan scroll HANYA di area ini jika kontennya penuh */
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Jarak antar bubble pesan */
+}
+
+/* --- Pesan Selamat Datang --- */
+.chatbot-welcome-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-secondary);
+  text-align: center;
+  gap: 1rem;
+}
+
+/* --- Bubble Pesan --- */
+.message-bubble-wrapper {
+  display: flex;
+  width: 100%;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.message-bubble-wrapper.user {
+  justify-content: flex-end; /* Pesan user ke kanan */
+}
+
+.message-bubble-wrapper.bot {
+  justify-content: flex-start; /* Pesan bot ke kiri */
+}
+
+.message-bubble {
+  max-width: 80%;
+  padding: 0.75rem 1rem;
+  border-radius: 18px;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.message-bubble-wrapper.user .message-bubble {
+  background-color: var(--user-bubble-bg);
+  color: white;
+  border-bottom-right-radius: 4px; /* Memberi aksen modern */
+}
+
+.message-bubble-wrapper.bot .message-bubble {
+  background-color: var(--bot-bubble-bg);
+  color: var(--text-primary);
+  border-bottom-left-radius: 4px; /* Memberi aksen modern */
+}
+
+.message-bubble.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+}
+
+.loading-icon {
+  animation: spin 1s linear infinite;
+}
+
+/* --- Area Input --- */
+.chatbot-input-area {
+  display: flex;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--header-bg);
+  gap: 0.75rem;
+}
+
+.chatbot-input {
+  flex: 1;
+  border: none;
+  background-color: var(--input-bg);
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  outline: none;
+  transition: box-shadow 0.2s;
+  color: var(--text-primary);
+}
+
+.chatbot-input:focus {
+  box-shadow: 0 0 0 2px var(--user-bubble-bg);
+}
+
+.chatbot-send-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: var(--user-bubble-bg);
+  color: white;
+  padding: 0.75rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s;
+  font-size: 1.2rem;
+}
+
+.chatbot-send-button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.chatbot-send-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- Scrollbar Styling (Opsional) --- */
+.chatbot-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chatbot-messages::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
+}
+
+.chatbot-messages::-webkit-scrollbar-track {
+  background-color: transparent;
+}
