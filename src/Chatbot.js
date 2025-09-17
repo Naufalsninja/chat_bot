@@ -26,12 +26,13 @@ function Chatbot() {
     setLoading(true);
 
     try {
-      const response = await axios.post('https://tuyaysolihin-chatbot.hf.space/chatbot', {
-        message: input,   // ✅ sesuai backend
-      });
+      const response = await axios.post(
+        'https://tuyaysolihin-chatbot.hf.space/chatbot',
+        { message: input }
+      );
 
-      // ✅ backend sudah kasih field 'response'
-      const botMessage = { text: response.data.response, sender: 'bot' };
+      // ✅ gunakan field 'chatbot_response' sesuai backend
+      const botMessage = { text: response.data.chatbot_response, sender: 'bot' };
       setMessages(prevMessages => [...prevMessages, botMessage]);
     } catch (error) {
       console.error('Error mengirim pesan:', error);
@@ -87,7 +88,11 @@ function Chatbot() {
           placeholder="Ketik pesan Anda di sini..."
           disabled={loading}
         />
-        <button className="chatbot-send-button" onClick={sendMessage} disabled={loading || input.trim() === ''}>
+        <button
+          className="chatbot-send-button"
+          onClick={sendMessage}
+          disabled={loading || input.trim() === ''}
+        >
           <FiSend />
         </button>
       </div>
