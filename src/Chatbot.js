@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import { FiSend, FiLoader, FiUser, FiMessageSquare } from 'react-icons/fi'; // Tambahkan FiMessageSquare
+import { FiSend, FiLoader, FiMessageSquare } from 'react-icons/fi';
 import './Chatbot.css';
 
 function Chatbot() {
@@ -15,7 +15,7 @@ function Chatbot() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, loading]); // Efek dijalankan setiap kali pesan atau status loading berubah
+  }, [messages, loading]);
 
   const sendMessage = async () => {
     if (input.trim() === '' || loading) return;
@@ -26,12 +26,11 @@ function Chatbot() {
     setLoading(true);
 
     try {
-      // Pastikan URL ini sesuai dengan endpoint backend Anda
       const response = await axios.post('https://tuyaysolihin-chatbot.hf.space/chatbot', {
-      message: input,   // ✅ cocok sama backend
+        message: input,   // ✅ sesuai backend
       });
 
-
+      // ✅ backend sudah kasih field 'response'
       const botMessage = { text: response.data.response, sender: 'bot' };
       setMessages(prevMessages => [...prevMessages, botMessage]);
     } catch (error) {
