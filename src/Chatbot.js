@@ -28,9 +28,9 @@ function Chatbot() {
     try {
       // Pastikan URL ini sesuai dengan endpoint backend Anda
       const response = await axios.post('https://tuyaysolihin-chatbot.hf.space/chatbot', {
-        //http://localhost:5000/chatbot "buat local"
-        query: input,
+      message: input,   // ✅ cocok sama backend
       });
+
 
       const botMessage = { text: response.data.response, sender: 'bot' };
       setMessages(prevMessages => [...prevMessages, botMessage]);
