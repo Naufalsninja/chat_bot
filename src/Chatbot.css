@@ -24,65 +24,84 @@
 
 /* --- Variabel Warna & Style Global --- */
 :root {
-  --bg-color: #f4f7f9; /* Warna latar belakang keseluruhan, bisa diabaikan jika komponen dibatasi */
-  --container-bg: #ffffff; /* Latar belakang utama chatbot */
-  --header-bg: #ffffff; /* Latar belakang header */
-  --user-bubble-bg: #007aff; /* Warna bubble chat user (biru cerah) */
-  --bot-bubble-bg: #e9e9eb; /* Warna bubble chat bot (abu-abu muda) */
-  --text-primary: #1c1c1e; /* Teks utama (hitam pekat) */
-  --text-secondary: #8a8a8e; /* Teks sekunder (abu-abu) */
-  --input-bg: #f0f0f0; /* Latar belakang input field */
-  --border-color: #e1e1e1; /* Warna garis pemisah */
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Bayangan lembut */
+  --user-bubble-bg: #007aff;
+  --bot-bubble-bg: #e9e9eb;
+  --text-primary: #1c1c1e;
+  --text-secondary: #8a8a8e;
+  --input-bg: #f0f0f0;
+  --border-color: #e1e1e1;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Latar Belakang RGB --- */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  /* KUNCI: Latar belakang gradien RGB yang keren */
+  background: linear-gradient(135deg, #FF6F61, #6B5B95, #88B04B, #FFC75F, #F7CAC9, #92A8D1);
+  background-size: 400% 400%;
+  animation: backgroundAnimation 15s ease infinite;
+}
+
+@keyframes backgroundAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* --- Container Utama Chatbot --- */
 .chatbot-container {
-  font-family: 'Inter', sans-serif; /* Font yang bersih dan modern */
-  width: 100%; /* Lebar penuh agar responsif */
-  max-width: 450px; /* Batasan lebar maksimum, cocok untuk ponsel dan desktop kecil */
-  height: 85vh; /* Tinggi sekitar 85% dari viewport height, agar pas di layar */
-  max-height: 700px; /* Batasan tinggi maksimum agar tidak terlalu menjulang */
-  margin: 2rem auto; /* Pusatkan container di layar */
-  background-color: var(--container-bg); /* Latar belakang putih */
-  border-radius: 20px; /* Sudut yang membulat */
-  box-shadow: var(--shadow); /* Bayangan halus */
-  display: flex; /* KUNCI: Menggunakan Flexbox untuk layout vertikal */
-  flex-direction: column; /* Mengatur anak elemen (header, pesan, input) secara vertikal */
-  overflow: hidden; /* Mencegah konten keluar dari border-radius */
-  border: 1px solid var(--border-color); /* Border tipis untuk definisi */
+  width: 95%; /* Lebih responsif di mobile */
+  max-width: 450px;
+  height: 90vh; /* Menggunakan persentase untuk tinggi */
+  max-height: 700px;
+  margin: 2vh auto; /* Menyesuaikan margin untuk semua layar */
+  background-color: rgba(255, 255, 255, 0.9); /* Sedikit transparan agar gradien terlihat */
+  backdrop-filter: blur(10px); /* Efek blur untuk menonjolkan konten */
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Sedikit border */
 }
 
 /* --- Header --- */
 .chatbot-header {
-  padding: 1rem 1.5rem; /* Padding di dalam header */
-  border-bottom: 1px solid var(--border-color); /* Garis pemisah dari area pesan */
-  background-color: var(--header-bg); /* Latar belakang header bisa berbeda jika diinginkan */
-  text-align: center; /* Teks rata tengah */
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: transparent; /* Ubah ke transparan */
+  text-align: center;
 }
 
 .chatbot-title {
-  margin: 0; /* Hilangkan margin default */
-  font-size: 1.25rem; /* Ukuran font judul */
-  font-weight: 600; /* Ketebalan font */
-  color: var(--text-primary); /* Warna teks judul */
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .chatbot-subtitle {
-  margin: 0.25rem 0 0; /* Margin di bawah judul */
-  font-size: 0.85rem; /* Ukuran font subjudul */
-  color: var(--text-secondary); /* Warna teks sekunder */
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
 }
 
-
-/* --- Area Pesan (Bagian Paling Penting untuk Layout) --- */
+/* --- Area Pesan --- */
 .chatbot-messages {
-  flex: 1; /* KUNCI: Membuat area ini mengisi semua ruang yang tersedia di antara header dan input */
-  overflow-y: auto; /* KUNCI: Menambahkan scrollbar HANYA di area ini jika kontennya melebihi tinggi */
-  padding: 1.5rem; /* Padding di dalam area pesan */
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
   display: flex;
-  flex-direction: column; /* Pesan tersusun vertikal */
-  gap: 1rem; /* Jarak antar bubble pesan */
+  flex-direction: column;
+  gap: 1rem;
 }
 
 /* --- Pesan Selamat Datang --- */
@@ -90,136 +109,118 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Pusatkan secara vertikal dan horizontal */
-  height: 100%; /* Isi tinggi area pesan */
-  color: var(--text-secondary); /* Warna teks */
-  text-align: center; /* Teks rata tengah */
-  gap: 1rem; /* Jarak antara ikon dan teks */
+  justify-content: center;
+  height: 100%;
+  color: var(--text-secondary);
+  text-align: center;
+  gap: 1rem;
 }
 
 /* --- Bubble Pesan --- */
 .message-bubble-wrapper {
-  display: flex; /* Gunakan flexbox untuk mengatur posisi */
-  width: 100%; /* Lebar penuh */
-  animation: fadeIn 0.3s ease-out; /* Animasi kemunculan */
+  display: flex;
+  width: 100%;
+  animation: fadeIn 0.3s ease-out;
 }
 
 .message-bubble-wrapper.user {
-  justify-content: flex-end; /* Pesan user rata kanan */
+  justify-content: flex-end;
 }
 
 .message-bubble-wrapper.bot {
-  justify-content: flex-start; /* Pesan bot rata kiri */
+  justify-content: flex-start;
 }
 
 .message-bubble {
-  max-width: 80%; /* Maksimal 80% dari lebar container agar tidak menempel pinggir */
-  padding: 0.75rem 1rem; /* Padding dalam bubble */
-  border-radius: 18px; /* Sudut membulat */
-  line-height: 1.5; /* Jarak antar baris teks */
-  font-size: 0.95rem; /* Ukuran font pesan */
-  word-wrap: break-word; /* Pastikan kata panjang terbungkus */
+  max-width: 80%;
+  padding: 0.75rem 1rem;
+  border-radius: 18px;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  word-wrap: break-word; /* Memastikan teks tidak keluar */
 }
 
 .message-bubble-wrapper.user .message-bubble {
-  background-color: var(--user-bubble-bg); /* Warna biru untuk user */
-  color: white; /* Teks putih agar kontras */
-  border-bottom-right-radius: 4px; /* Aksen modern (sudut kanan bawah lebih tajam) */
+  background-color: var(--user-bubble-bg);
+  color: white;
+  border-bottom-right-radius: 4px;
 }
 
 .message-bubble-wrapper.bot .message-bubble {
-  background-color: var(--bot-bubble-bg); /* Warna abu-abu untuk bot */
-  color: var(--text-primary); /* Teks hitam */
-  border-bottom-left-radius: 4px; /* Aksen modern (sudut kiri bawah lebih tajam) */
+  background-color: var(--bot-bubble-bg);
+  color: var(--text-primary);
+  border-bottom-left-radius: 4px;
 }
 
 .message-bubble.loading {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem; /* Padding untuk ikon loading */
+  padding: 0.75rem;
 }
 
 .loading-icon {
-  animation: spin 1s linear infinite; /* Animasi putar */
-  font-size: 1.2rem; /* Ukuran ikon loading */
+  animation: spin 1s linear infinite;
 }
 
 /* --- Area Input --- */
 .chatbot-input-area {
-  display: flex; /* Gunakan flexbox untuk menyusun input dan tombol */
-  padding: 1rem 1.5rem; /* Padding di sekitar area input */
-  border-top: 1px solid var(--border-color); /* Garis pemisah dari pesan */
-  background-color: var(--header-bg); /* Latar belakang sama dengan header */
-  gap: 0.75rem; /* Jarak antar elemen di input area */
-  align-items: center; /* Pusatkan secara vertikal */
+  display: flex;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background-color: transparent; /* Ubah ke transparan */
+  gap: 0.75rem;
 }
 
 .chatbot-input {
-  flex: 1; /* Input field mengisi sisa ruang */
-  border: none; /* Hilangkan border default */
-  background-color: var(--input-bg); /* Latar belakang input */
-  padding: 0.75rem 1rem; /* Padding dalam input */
-  border-radius: 12px; /* Sudut membulat */
-  font-size: 1rem; /* Ukuran font */
-  outline: none; /* Hilangkan outline saat fokus */
-  transition: box-shadow 0.2s; /* Transisi saat fokus */
-  color: var(--text-primary); /* Warna teks input */
+  flex: 1;
+  border: none;
+  background-color: rgba(240, 240, 240, 0.7); /* Sedikit transparan */
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  outline: none;
+  transition: box-shadow 0.2s;
+  color: var(--text-primary);
 }
 
 .chatbot-input:focus {
-  box-shadow: 0 0 0 2px var(--user-bubble-bg); /* Efek fokus dengan warna biru */
+  box-shadow: 0 0 0 2px var(--user-bubble-bg);
 }
 
 .chatbot-send-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: none; /* Hilangkan border default */
-  background-color: var(--user-bubble-bg); /* Warna tombol */
-  color: white; /* Teks ikon tombol */
-  padding: 0.75rem; /* Padding */
-  border-radius: 12px; /* Sudut membulat */
-  cursor: pointer; /* Pointer saat hover */
-  transition: background-color 0.2s, opacity 0.2s; /* Transisi efek */
-  font-size: 1.2rem; /* Ukuran ikon */
+  border: none;
+  background-color: var(--user-bubble-bg);
+  color: white;
+  padding: 0.75rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s;
+  font-size: 1.2rem;
 }
 
 .chatbot-send-button:hover:not(:disabled) {
-  background-color: #0056b3; /* Warna hover */
+  background-color: #0056b3;
 }
 
 .chatbot-send-button:disabled {
-  opacity: 0.5; /* Efek redup saat disabled */
-  cursor: not-allowed; /* Kursor not-allowed saat disabled */
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-/* --- Scrollbar Styling (Opsional, untuk tampilan lebih halus) --- */
+/* --- Scrollbar Styling (Opsional) --- */
 .chatbot-messages::-webkit-scrollbar {
-  width: 6px; /* Lebar scrollbar */
+  width: 6px;
 }
 
 .chatbot-messages::-webkit-scrollbar-thumb {
-  background-color: #ccc; /* Warna thumb scrollbar */
-  border-radius: 10px; /* Sudut thumb */
+  background-color: #ccc;
+  border-radius: 10px;
 }
 
 .chatbot-messages::-webkit-scrollbar-track {
-  background-color: transparent; /* Latar belakang track transparan */
-}
-
-/* --- Media Query untuk Penyesuaian Tambahan jika Diperlukan --- */
-@media (max-width: 768px) {
-  .chatbot-container {
-    margin: 1rem auto; /* Margin lebih kecil di layar yang lebih kecil */
-    height: 95vh; /* Tinggi lebih penuh di ponsel */
-    border-radius: 0; /* Hilangkan radius di layar penuh ponsel jika diinginkan */
-    box-shadow: none; /* Hilangkan shadow di layar penuh ponsel */
-  }
-  .chatbot-header, .chatbot-input-area {
-    padding: 1rem 1rem; /* Padding lebih kecil */
-  }
-  .chatbot-messages {
-    padding: 1rem; /* Padding lebih kecil */
-  }
+  background-color: transparent;
 }
