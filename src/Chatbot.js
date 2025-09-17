@@ -28,11 +28,12 @@ function Chatbot() {
     try {
       const response = await axios.post(
         'https://tuyaysolihin-chatbot.hf.space/chatbot',
-        { message: input }
+        { message: input },
+        { headers: { 'Content-Type': 'application/json' } }
       );
 
-      // ✅ gunakan field 'chatbot_response' sesuai backend
-      const botMessage = { text: response.data.chatbot_response, sender: 'bot' };
+      // ✅ sekarang ambil field 'response'
+      const botMessage = { text: response.data.response, sender: 'bot' };
       setMessages(prevMessages => [...prevMessages, botMessage]);
     } catch (error) {
       console.error('Error mengirim pesan:', error);
