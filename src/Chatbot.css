@@ -26,15 +26,16 @@
 /* --- Full Background (Non-fixed, mengalir) --- */
 body {
   margin: 0;
-  padding: 0;
+  padding: 3vh 0;  /* Jarak atas & bawah */
   font-family: 'Inter', sans-serif;
   background: linear-gradient(135deg, #f6d365, #fda085, #f78ca0, #a4a9ff, #b8acf3, #e0b0ff);
   background-size: 600% 600%;
   animation: backgroundAnimation 20s ease infinite;
   color: var(--text-primary);
-  
+
   height: 100vh;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 @keyframes backgroundAnimation {
@@ -47,12 +48,9 @@ body {
   width: 100%;
   max-width: 1000px;
 
-  padding-top: 3vh;
-  padding-bottom: 3vh;
-  margin: 0 auto;
+  margin: 0 auto; /* biar tetap center */
+  height: calc(100vh - 6vh); /* tetap pas dengan padding body */
 
-  height: calc(100vh - 6vh); /* tinggi total tetap pas */
-  
   display: flex;
   flex-direction: column;
 
