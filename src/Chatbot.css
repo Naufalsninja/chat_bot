@@ -42,16 +42,12 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* --- CHATBOT CONTAINER LIKE CHATGPT --- */
 .chatbot-container {
-  margin: 0 auto;
-  height: 100vh;
-  padding-top: 3vh;
-  padding-bottom: 3vh;
-  box-sizing: border-box;
-
   width: 100%;
   max-width: 1000px;
+
+  height: calc(100vh - 6vh);
+  margin: 3vh auto;
 
   display: flex;
   flex-direction: column;
@@ -63,7 +59,6 @@ body {
   border: 1px solid rgba(255,255,255,0.4);
   overflow: hidden;
 }
-
 
 /* --- HEADER --- */
 .chatbot-header {
