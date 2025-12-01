@@ -10,7 +10,9 @@ function Chatbot() {
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 50);
   };
 
   useEffect(() => {
@@ -21,7 +23,7 @@ function Chatbot() {
     if (input.trim() === '' || loading) return;
 
     const userMessage = { text: input, sender: 'user' };
-    setMessages(prevMessages => [...prevMessages, userMessage]);
+    setMessages(prev => [...prev, userMessage]);
     setInput('');
     setLoading(true);
 
@@ -32,48 +34,58 @@ function Chatbot() {
         { headers: { 'Content-Type': 'application/json' } }
       );
 
-      // ✅ sekarang ambil field 'response'
-      const botMessage = { text: response.data.response, sender: 'bot' };
-      setMessages(prevMessages => [...prevMessages, botMessage]);
+      const botText = response.data.response;
+
+      const botMessage = {
+        text: botText,
+        sender: 'bot'
+      };
+
+      setMessages(prev => [...prev, botMessage]);
     } catch (error) {
-      console.error('Error mengirim pesan:', error);
-      const errorMessage = { text: 'Maaf, terjadi kesalahan. Silakan coba lagi nanti.', sender: 'bot' };
-      setMessages(prevMessages => [...prevMessages, errorMessage]);
+      const errorMessage = {
+        text: 'Maaf, terjadi kesalahan. Silakan coba lagi nanti.',
+        sender: 'bot'
+      };
+      setMessages(prev => [...prev, errorMessage]);
     } finally {
       setLoading(false);
     }
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      sendMessage();
-    }
+    if (e.key === 'Enter') sendMessage();
   };
 
   return (
     <div className="chatbot-container">
+
       <div className="chatbot-header">
         <h1 className="chatbot-title">ASISTEN AI🤖🤖🤖</h1>
         <p className="chatbot-subtitle">Tanyakan apa saja pada saya</p>
       </div>
+
       <div className="chatbot-messages">
+
         {messages.length === 0 && (
           <div className="chatbot-welcome-message">
             <FiMessageSquare size={40} />
             <p>Mulai percakapan Anda</p>
           </div>
         )}
-        {messages.map((msg, index) => (
-          <div key={index} className={`message-bubble-wrapper ${msg.sender}`}>
-            <div className="message-bubble">
-              <div
-                className="message-content"
-                dangerouslySetInnerHTML={{ __html: msg.text }}
-              ></div>
 
-            </div>
+        {messages.map((msg, i) => (
+          <div key={i} className={`message-bubble-wrapper ${msg.sender}`}>
+            {/* ⬇ class table-bubble otomatis jika ada tag <table> */}
+            <div
+              className={`message-bubble ${
+                msg.text.includes('<table') ? 'table-bubble' : ''
+              }`}
+              dangerouslySetInnerHTML={{ __html: msg.text }}
+            ></div>
           </div>
         ))}
+
         {loading && (
           <div className="message-bubble-wrapper bot">
             <div className="message-bubble loading">
@@ -81,8 +93,10 @@ function Chatbot() {
             </div>
           </div>
         )}
+
         <div ref={messagesEndRef} />
       </div>
+
       <div className="chatbot-input-area">
         <input
           type="text"
@@ -101,6 +115,7 @@ function Chatbot() {
           <FiSend />
         </button>
       </div>
+
     </div>
   );
 }
