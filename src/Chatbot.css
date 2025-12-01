@@ -12,12 +12,13 @@
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-/* --- FIX SCROLL HALAMAN --- */
+/* --- FIX SCROLL HALAMAN (HANYA CHAT YANG BOLEH SCROLL) --- */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden; /* Hanya chatbot yang bisa scroll */
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* --- Background --- */
@@ -26,12 +27,9 @@ body {
   background: linear-gradient(135deg, #f6d365, #fda085, #f78ca0, #a4a9ff, #b8acf3, #e0b0ff);
   background-size: 600% 600%;
   animation: backgroundAnimation 20s ease infinite;
-  color: var(--text-primary);
-
-  /* Beri ruang 3vh di atas & bawah */
   padding-top: 3vh;
   padding-bottom: 3vh;
-  box-sizing: border-box;
+  color: var(--text-primary);
 }
 
 @keyframes backgroundAnimation {
@@ -44,8 +42,7 @@ body {
 .chatbot-container {
   width: 100%;
   max-width: 1000px;
-
-  height: calc(100vh - 6vh); /* tetap pas */
+  height: calc(100vh - 6vh);
   margin: 0 auto;
 
   display: flex;
@@ -56,8 +53,7 @@ body {
   border-radius: 15px;
   box-shadow: var(--shadow);
   border: 1px solid rgba(255,255,255,0.4);
-
-  overflow: hidden; /* agar konten tidak spill */
+  overflow: hidden;
 }
 
 /* --- HEADER --- */
@@ -73,12 +69,12 @@ body {
 }
 
 .chatbot-subtitle {
-  margin-top: 5px;
   font-size: 0.95rem;
   color: var(--text-secondary);
+  margin-top: 5px;
 }
 
-/* --- AREA CHAT --- */
+/* --- AREA CHAT (scroll) --- */
 .chatbot-messages {
   flex: 1;
   overflow-y: auto;
@@ -98,15 +94,19 @@ body {
   color: var(--text-secondary);
 }
 
-/* --- BUBBLE --- */
+/* --- BUBBLE MESSAGE --- */
 .message-bubble-wrapper {
   display: flex;
   width: 100%;
-  animation: fadeIn 0.4s ease-out forwards;
 }
 
-.message-bubble-wrapper.user { justify-content: flex-end; }
-.message-bubble-wrapper.bot { justify-content: flex-start; }
+.message-bubble-wrapper.user {
+  justify-content: flex-end;
+}
+
+.message-bubble-wrapper.bot {
+  justify-content: flex-start;
+}
 
 .message-bubble {
   max-width: 80%;
@@ -114,29 +114,36 @@ body {
   border-radius: 18px;
   line-height: 1.6;
   font-size: 1rem;
-
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
+/* USER BUBBLE */
 .message-bubble-wrapper.user .message-bubble {
   background-color: var(--user-bubble-bg);
   color: white;
   border-bottom-right-radius: 6px;
 }
 
+/* BOT BUBBLE */
 .message-bubble-wrapper.bot .message-bubble {
   background-color: var(--bot-bubble-bg);
   color: var(--text-primary);
   border-bottom-left-radius: 6px;
 }
 
-/* --- LOADING --- */
+/* --- LOADING SPINNER --- */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 .message-bubble.loading {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem;
+  padding: 0.8rem;
   background: rgba(233,233,233,0.8);
+  border-radius: 14px;
 }
 
 .loading-icon {
@@ -161,7 +168,6 @@ body {
   padding: 0.8rem 1rem;
   border-radius: 15px;
   font-size: 1rem;
-  outline: none;
 }
 
 .chatbot-send-button {
@@ -176,8 +182,8 @@ body {
   align-items:center;
   font-size: 1.2rem;
   cursor:pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .chatbot-send-button:hover:not(:disabled) {
@@ -190,62 +196,35 @@ body {
   cursor: not-allowed;
 }
 
-/* --- TABLE FIX INSIDE BUBBLE --- */
+/* --- TABLE FIX INSIDE BUBBLE (FINAL) --- */
 .message-bubble-wrapper.bot .message-content {
   width: 100%;
-  overflow-x: auto;
-}
-
-.message-bubble-wrapper.bot .message-content table {
-  width: 100%;
-  max-width: 100%;
-  border-collapse: collapse;
-  margin-top: 0.5rem;
+  overflow-x: auto; /* scroll kanan-kiri */
   display: block;
 }
 
-.message-bubble-wrapper.bot .message-content th,
-.message-bubble-wrapper.bot .message-content td {
-  border: 1px solid rgba(0,0,0,0.15);
-  padding: 8px 10px;
-  font-size: 0.9rem;
-}
-
-.message-bubble-wrapper.bot .message-content th {
-  background: rgba(0,0,0,0.06);
-  font-weight: 600;
-}
-
-.message-bubble-wrapper.bot .message-content tr:nth-child(even) {
-  background: rgba(0,0,0,0.03);
-}
-
-.message-bubble-wrapper.bot .message-content table {
+.message-bubble-wrapper.bot table {
   border-collapse: collapse;
-  width: 100%;
-  table-layout: auto; /* AUTO = lebih rapi */
-  border-radius: 10px;
-  overflow: hidden;
+  width: max-content; /* WAJIB agar tabel bisa meluber */
+  min-width: 100%;   /* tetap rapi */
+  margin-top: 0.5rem;
 }
 
-.message-bubble-wrapper.bot .message-content th,
-.message-bubble-wrapper.bot .message-content td {
-  padding: 10px 12px;
+/* HEADER & DATA */
+.message-bubble-wrapper.bot th,
+.message-bubble-wrapper.bot td {
+  padding: 10px 14px;
   border: 1px solid #dcdcdc;
+  white-space: nowrap; /* kolom tidak turun */
+  font-size: 0.9rem;
   text-align: left;
-  word-wrap: break-word;
-  white-space: normal; /* tulisannya ngikut bubble */
 }
 
-.message-bubble-wrapper.bot .message-content th {
+.message-bubble-wrapper.bot th {
   background: #f5f5f5;
   font-weight: 600;
 }
 
-.message-bubble-wrapper.bot .message-content tr:nth-child(even) {
+.message-bubble-wrapper.bot tr:nth-child(even) {
   background: #fafafa;
-}
-
-.message-bubble-wrapper.bot .message-content {
-  overflow-x: auto;
 }
