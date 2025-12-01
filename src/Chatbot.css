@@ -1,17 +1,6 @@
 /* --- Import Font --- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-/* --- Animasi --- */
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 /* --- Variabel CSS --- */
 :root {
   --user-bubble-bg: #007aff;
@@ -23,20 +12,25 @@
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-/* --- Full Background + fix scroll --- */
+/* --- FIX SCROLL HALAMAN --- */
 html, body {
   margin: 0;
-  padding: 3vh 0; /* jarak atas bawah */
+  padding: 0;
   height: 100%;
-  overflow: hidden; /* halaman tidak boleh scroll */
+  overflow: hidden; /* Hanya chatbot yang bisa scroll */
 }
 
+/* --- Background --- */
 body {
   font-family: 'Inter', sans-serif;
   background: linear-gradient(135deg, #f6d365, #fda085, #f78ca0, #a4a9ff, #b8acf3, #e0b0ff);
   background-size: 600% 600%;
   animation: backgroundAnimation 20s ease infinite;
   color: var(--text-primary);
+
+  /* Beri ruang 3vh di atas & bawah */
+  padding-top: 3vh;
+  padding-bottom: 3vh;
   box-sizing: border-box;
 }
 
@@ -46,15 +40,12 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* --- CHATBOT CONTAINER --- */
+/* --- CONTAINER CHATBOT --- */
 .chatbot-container {
-  padding-top: 2vh;
-  padding-bottom: 2vh;
-  
   width: 100%;
   max-width: 1000px;
 
-  height: calc(100vh - 6vh);
+  height: calc(100vh - 6vh); /* tetap pas */
   margin: 0 auto;
 
   display: flex;
@@ -66,7 +57,7 @@ body {
   box-shadow: var(--shadow);
   border: 1px solid rgba(255,255,255,0.4);
 
-  overflow: hidden; /* penting agar tidak spill */
+  overflow: hidden; /* agar konten tidak spill */
 }
 
 /* --- HEADER --- */
@@ -114,13 +105,8 @@ body {
   animation: fadeIn 0.4s ease-out forwards;
 }
 
-.message-bubble-wrapper.user {
-  justify-content: flex-end;
-}
-
-.message-bubble-wrapper.bot {
-  justify-content: flex-start;
-}
+.message-bubble-wrapper.user { justify-content: flex-end; }
+.message-bubble-wrapper.bot { justify-content: flex-start; }
 
 .message-bubble {
   max-width: 80%;
@@ -128,17 +114,16 @@ body {
   border-radius: 18px;
   line-height: 1.6;
   font-size: 1rem;
+
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* USER BUBBLE */
 .message-bubble-wrapper.user .message-bubble {
   background-color: var(--user-bubble-bg);
   color: white;
   border-bottom-right-radius: 6px;
 }
 
-/* BOT BUBBLE */
 .message-bubble-wrapper.bot .message-bubble {
   background-color: var(--bot-bubble-bg);
   color: var(--text-primary);
@@ -151,13 +136,13 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0.75rem;
-  background: rgba(233, 233, 233, 0.8);
+  background: rgba(233,233,233,0.8);
 }
 
 .loading-icon {
   animation: spin 1s linear infinite;
-  color: var(--user-bubble-bg);
   font-size: 1.2rem;
+  color: var(--user-bubble-bg);
 }
 
 /* --- INPUT AREA --- */
@@ -208,7 +193,7 @@ body {
 /* --- TABLE FIX INSIDE BUBBLE --- */
 .message-bubble-wrapper.bot .message-content {
   width: 100%;
-  overflow-x: auto; /* kalau tabel panjang → scroll horizontal */
+  overflow-x: auto;
 }
 
 .message-bubble-wrapper.bot .message-content table {
@@ -216,7 +201,7 @@ body {
   max-width: 100%;
   border-collapse: collapse;
   margin-top: 0.5rem;
-  display: block; /* penting agar ikut bubble */
+  display: block;
 }
 
 .message-bubble-wrapper.bot .message-content th,
