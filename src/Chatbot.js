@@ -66,7 +66,11 @@ function Chatbot() {
         {messages.map((msg, index) => (
           <div key={index} className={`message-bubble-wrapper ${msg.sender}`}>
             <div className="message-bubble">
-              <div className="message-content">{msg.text}</div>
+              <div
+                className="message-content"
+                dangerouslySetInnerHTML={{ __html: msg.text }}
+              ></div>
+
             </div>
           </div>
         ))}
