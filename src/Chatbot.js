@@ -76,13 +76,17 @@ function Chatbot() {
 
         {messages.map((msg, i) => (
           <div key={i} className={`message-bubble-wrapper ${msg.sender}`}>
-            {/* ⬇ class table-bubble otomatis jika ada tag <table> */}
-            <div
-              className={`message-bubble ${
-                msg.text.includes('<table') ? 'table-bubble' : ''
-              }`}
-              dangerouslySetInnerHTML={{ __html: msg.text }}
-            ></div>
+            
+            {/* Struktur FIX — tabel dibungkus message-content */}
+            <div className="message-bubble">
+              <div
+                className={`message-content ${
+                  msg.text.includes('<table') ? 'table-bubble' : ''
+                }`}
+                dangerouslySetInnerHTML={{ __html: msg.text }}
+              ></div>
+            </div>
+
           </div>
         ))}
 
