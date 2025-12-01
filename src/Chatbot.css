@@ -32,8 +32,9 @@ body {
   background-size: 600% 600%;
   animation: backgroundAnimation 20s ease infinite;
   color: var(--text-primary);
-  /* Penting: Pastikan body memiliki tinggi minimal 100vh untuk menampung konten */
-  min-height: 100vh;
+  
+  height: 100vh;
+  overflow: hidden;
 }
 
 @keyframes backgroundAnimation {
