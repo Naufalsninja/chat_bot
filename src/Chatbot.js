@@ -53,7 +53,7 @@ function Chatbot() {
   return (
     <div className="chatbot-container">
       <div className="chatbot-header">
-        <h1 className="chatbot-title">ASISTEN AI🤖</h1>
+        <h1 className="chatbot-title">ASISTEN AI🤖🤖🤖</h1>
         <p className="chatbot-subtitle">Tanyakan apa saja pada saya</p>
       </div>
       <div className="chatbot-messages">
