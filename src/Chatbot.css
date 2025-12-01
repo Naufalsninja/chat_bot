@@ -190,8 +190,8 @@ body {
 }
 
 .chatbot-send-button:hover:not(:disabled) {
-  background-color: #0056b3; 
-  transform: scale(1.05); 
+  background-color: #0056b3;
+  transform: scale(1.05);
 }
 
 .chatbot-send-button:disabled {
