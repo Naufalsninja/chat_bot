@@ -44,27 +44,26 @@ body {
 
 /* --- CHATBOT CONTAINER LIKE CHATGPT --- */
 .chatbot-container {
-  /* Terapkan margin di atas/bawah agar tidak menempel ke ujung layar */
-  margin: 3vh auto; 
-  
-  /* Sesuaikan tinggi agar ada ruang untuk margin di atas/bawah */
-  height: 94vh; 
+  margin: 0 auto;
+  height: 100vh;
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+  box-sizing: border-box;
+
   width: 100%;
   max-width: 1000px;
-  
+
   display: flex;
   flex-direction: column;
 
   background-color: rgba(255,255,255,0.9);
   backdrop-filter: blur(12px);
-  /* Berikan sudut membulat untuk estetika, karena sudah ada margin */
-  border-radius: 15px; 
+  border-radius: 15px;
   box-shadow: var(--shadow);
-
-  /* Hapus border kiri/kanan jika sudah ada margin */
-  border: 1px solid rgba(255,255,255,0.4); 
+  border: 1px solid rgba(255,255,255,0.4);
   overflow: hidden;
 }
+
 
 /* --- HEADER --- */
 .chatbot-header {
