@@ -47,9 +47,12 @@ body {
   width: 100%;
   max-width: 1000px;
 
-  height: calc(100vh - 6vh);
-  margin: 3vh auto;
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+  margin: 0 auto;
 
+  height: calc(100vh - 6vh); /* tinggi total tetap pas */
+  
   display: flex;
   flex-direction: column;
 
