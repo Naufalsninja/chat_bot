@@ -15,6 +15,21 @@ function Chatbot() {
     }, 50);
   };
 
+  // ⬇️ AUTO GREETING FROM BACKEND
+  useEffect(() => {
+    const loadGreeting = async () => {
+      try {
+        const res = await axios.get("https://tuyaysolihin-chatbot.hf.space/chatbot/start");
+        setMessages([{ text: res.data.response, sender: 'bot' }]);
+      } catch (err) {
+        console.error('Greeting failed:', err);
+      }
+    };
+
+    loadGreeting();
+  }, []);
+
+  // ⬇️ AUTO SCROLL WHEN MESSAGES CHANGE
   useEffect(() => {
     scrollToBottom();
   }, [messages, loading]);
@@ -44,7 +59,7 @@ function Chatbot() {
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
       const errorMessage = {
-        text: 'Maaf, terjadi kesalahan. Silakan coba lagi nanti.',
+        text: '⚠️ Maaf, terjadi kesalahan. Silakan coba lagi nanti.',
         sender: 'bot'
       };
       setMessages(prev => [...prev, errorMessage]);
@@ -61,8 +76,8 @@ function Chatbot() {
     <div className="chatbot-container">
 
       <div className="chatbot-header">
-        <h1 className="chatbot-title">ASISTEN AI🤖🤖🤖</h1>
-        <p className="chatbot-subtitle">Tanyakan apa saja pada saya</p>
+        <h1 className="chatbot-title">ASISTEN AI 🤖</h1>
+        <p className="chatbot-subtitle">Tanyakan apa saja terkait data perusahaan</p>
       </div>
 
       <div className="chatbot-messages">
@@ -70,14 +85,12 @@ function Chatbot() {
         {messages.length === 0 && (
           <div className="chatbot-welcome-message">
             <FiMessageSquare size={40} />
-            <p>Mulai percakapan Anda</p>
+            <p>Memuat asisten...</p>
           </div>
         )}
 
         {messages.map((msg, i) => (
           <div key={i} className={`message-bubble-wrapper ${msg.sender}`}>
-            
-            {/* Struktur FIX — tabel dibungkus message-content */}
             <div className="message-bubble">
               <div
                 className={`message-content ${
@@ -86,7 +99,6 @@ function Chatbot() {
                 dangerouslySetInnerHTML={{ __html: msg.text }}
               ></div>
             </div>
-
           </div>
         ))}
 
@@ -108,7 +120,7 @@ function Chatbot() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder="Ketik pesan Anda di sini..."
+          placeholder="Ketik pesan Anda..."
           disabled={loading}
         />
         <button
