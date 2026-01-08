@@ -17,18 +17,23 @@ function Chatbot() {
 
   // ⬇️ AUTO GREETING FROM BACKEND
   useEffect(() => {
-    const loadGreeting = async () => {
-      try {
-        const res = await axios.get("https://tuyaysolihin-chatbot.hf.space/chatbot/start");
-        setMessages([{ text: res.data.response, sender: 'bot' }]);
-      } catch (err) {
-        console.error('Greeting failed:', err);
-      }
-    };
+  const loadGreeting = async () => {
+    try {
+      const res = await axios.post(
+        "https://tuyaysolihin-chatbot.hf.space/chatbot",
+        { message: "" },
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-    loadGreeting();
-  }, []);
+      setMessages([{ text: res.data.response, sender: "bot" }]);
+    } catch (err) {
+      console.error("Greeting failed:", err);
+    }
+  };
 
+  loadGreeting();
+}, []);
+  
   // ⬇️ AUTO SCROLL WHEN MESSAGES CHANGE
   useEffect(() => {
     scrollToBottom();
