@@ -151,45 +151,68 @@ body {
   font-size: 1.2rem;
   color: var(--user-bubble-bg);
 }
+
 /* --- Tambahan untuk Menu --- */
 .chatbot-menu-container {
   display: flex;
-  gap: 10px;
-  padding: 10px 15px;
-  background-color: #f9f9f9; /* Atau transparan jika background utama sudah berwarna */
-  overflow-x: auto; /* Agar bisa digeser jika menunya banyak */
-  white-space: nowrap;
-  border-top: 1px solid #eee;
+  gap: 12px;               /* Jarak antar tombol lebih renggang */
+  padding: 10px 20px 15px; /* Padding agar tidak mepet */
+  overflow-x: auto;        /* Scroll horizontal jika menu banyak */
+  white-space: nowrap;     /* Mencegah tombol turun ke bawah */
   
-  /* Sembunyikan scrollbar agar rapi */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  /* Hilangkan border atas garis, ganti dengan transparan agar clean */
+  border-top: none; 
+  background: transparent; /* Background transparan agar menyatu */
+
+  /* Sembunyikan Scrollbar (agar lebih rapi) */
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
 }
 
 .chatbot-menu-container::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
+/* --- TOMBOL MENU (Modern Black Pill) --- */
 .menu-pill-button {
-  background-color: #000; /* Warna Hitam sesuai request */
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 20px; /* Membuat bentuk pill/lonjong */
-  font-size: 14px;
+  /* Warna & Bentuk */
+  background-color: #1a1a1a; /* Hitam elegan (bukan hitam mati) */
+  color: #ffffff;            /* Teks putih */
+  border: none;              /* Hapus border default */
+  border-radius: 50px;       /* Membuat bentuk lonjong sempurna (Pill) */
+  
+  /* Ukuran & Teks */
+  padding: 10px 20px;        /* Padding luas agar tombol terlihat "berisi" */
+  font-size: 0.9rem;         /* Ukuran font pas */
+  font-weight: 500;          /* Sedikit tebal agar mudah dibaca */
+  font-family: inherit;      /* Mengikuti font website */
+  
+  /* Efek Visual */
   cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
-  flex-shrink: 0; /* Mencegah tombol mengecil */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Bayangan halus (Shadow) */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Animasi halus */
+  
+  flex-shrink: 0; /* Pastikan tombol tidak mengecil/gepeng */
 }
 
+/* --- EFEK HOVER (Saat Mouse Diarahkan) --- */
 .menu-pill-button:hover {
-  background-color: #333; /* Sedikit lebih terang saat di-hover */
-  transform: translateY(-2px);
+  background-color: #000000; /* Menjadi hitam pekat saat hover */
+  transform: translateY(-3px); /* Tombol naik sedikit (efek melayang) */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Bayangan makin kuat */
 }
 
+/* --- EFEK KLIK (Saat Tombol Ditekan) --- */
+.menu-pill-button:active {
+  transform: scale(0.95); /* Efek mengecil sedikit saat ditekan (taktil) */
+}
+
+/* --- SAAT LOADING (Disabled) --- */
 .menu-pill-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+  background-color: #e0e0e0;
+  color: #a0a0a0;
+  box-shadow: none;
+  cursor: default;
   transform: none;
 }
 
