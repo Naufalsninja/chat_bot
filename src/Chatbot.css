@@ -155,14 +155,14 @@ body {
 /* --- Tambahan untuk Menu --- */
 .chatbot-menu-container {
   display: flex;
-  gap: 12px;               /* Jarak antar tombol lebih renggang */
-  padding: 10px 20px 15px; /* Padding agar tidak mepet */
-  overflow-x: auto;        /* Scroll horizontal jika menu banyak */
-  white-space: nowrap;     /* Mencegah tombol turun ke bawah */
+  gap: 12px;
+  padding: 10px 20px 15px;
+  overflow-x: auto;
+  white-space: nowrap;
   border-top: none; 
-  background: transparent; /* Background transparan agar menyatu */
+  background: transparent;
 
-  /* Sembunyikan Scrollbar (agar lebih rapi) */
+  /* Sembunyikan Scrollbar */
   -ms-overflow-style: none;  
   scrollbar-width: none;  
 }
@@ -171,57 +171,56 @@ body {
   display: none;
 }
 
-/* --- TOMBOL MENU (Modern Black Pill) --- */
+/* --- TOMBOL MENU (SILVER / GLASS STYLE) --- */
 .menu-pill-button {
-  /* Warna Dasar: Silver Transparan (Putih keabu-abuan) */
-  background: rgba(255, 255, 255, 0.65); 
+  /* GUNAKAN !important AGAR WARNA HITAM TERTIMPA */
+  background: rgba(255, 255, 255, 0.75) !important; /* Warna Silver Transparan */
+  color: #333 !important;                            /* Teks Abu Gelap */
   
   /* Efek BLUR (Kaca Es) */
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 
   /* Border tipis agar terlihat seperti kaca */
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
   
-  /* Text Color: Hitam/Abu Gelap agar terbaca di atas silver */
-  color: #333;            
-
   /* Bentuk Pill */
-  border-radius: 50px;       
-  padding: 8px 18px;        
-  font-size: 0.9rem;         
+  border-radius: 50px !important;
+  padding: 8px 18px !important;
+  font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
   
   /* Bayangan lembut */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important;
   transition: all 0.3s ease;
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
+
 /* --- EFEK HOVER (Saat Mouse Diarahkan) --- */
 .menu-pill-button:hover {
-  /* Menjadi lebih solid (lebih putih/silver) */
-  background: rgba(255, 255, 255, 0.9); 
+  /* Menjadi lebih solid (Putih) saat hover */
+  background: #ffffff !important;
   
   /* Efek Melayang */
-  transform: translateY(-2px); 
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); 
-  border-color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1) !important;
+  border-color: #fff !important;
 }
 
 /* --- EFEK KLIK --- */
 .menu-pill-button:active {
   transform: scale(0.95);
-  background: rgba(220, 220, 220, 0.8); /* Sedikit menggelap saat ditekan */
+  background: rgba(220, 220, 220, 0.8) !important;
 }
 
 /* --- SAAT LOADING --- */
 .menu-pill-button:disabled {
-  background: rgba(200, 200, 200, 0.3);
-  color: #aaa;
+  background: rgba(200, 200, 200, 0.3) !important;
+  color: #aaa !important;
   cursor: default;
   backdrop-filter: none;
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
 /* --- INPUT AREA --- */
