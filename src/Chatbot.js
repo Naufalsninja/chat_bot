@@ -9,40 +9,48 @@ function Chatbot() {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
+  // ⬇️ DAFTAR MENU (Bisa Anda sesuaikan teksnya)
+  const menuOptions = [
+    "Apa itu data perusahaan?",
+    "Tampilkan laporan penjualan",
+    "Analisis tren terbaru",
+    "Hubungi support"
+  ];
+
   const scrollToBottom = () => {
     setTimeout(() => {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, 50);
   };
 
-  // ⬇️ AUTO GREETING FROM BACKEND
   useEffect(() => {
-  const loadGreeting = async () => {
-    try {
-      const res = await axios.post(
-        "https://tuyaysolihin-chatbot.hf.space/chatbot",
-        { message: "" },
-        { headers: { "Content-Type": "application/json" } }
-      );
-
-      setMessages([{ text: res.data.response, sender: "bot" }]);
-    } catch (err) {
-      console.error("Greeting failed:", err);
-    }
-  };
-
-  loadGreeting();
-}, []);
+    const loadGreeting = async () => {
+      try {
+        const res = await axios.post(
+          "https://tuyaysolihin-chatbot.hf.space/chatbot",
+          { message: "" },
+          { headers: { "Content-Type": "application/json" } }
+        );
+        setMessages([{ text: res.data.response, sender: "bot" }]);
+      } catch (err) {
+        console.error("Greeting failed:", err);
+      }
+    };
+    loadGreeting();
+  }, []);
   
-  // ⬇️ AUTO SCROLL WHEN MESSAGES CHANGE
   useEffect(() => {
     scrollToBottom();
   }, [messages, loading]);
 
-  const sendMessage = async () => {
-    if (input.trim() === '' || loading) return;
+  // ⬇️ UPDATE: sendMessage sekarang menerima parameter opsional (customText)
+  const sendMessage = async (customText = null) => {
+    // Jika customText ada (dari tombol menu), pakai itu. Jika tidak, pakai state input.
+    const textToSend = typeof customText === 'string' ? customText : input;
 
-    const userMessage = { text: input, sender: 'user' };
+    if (!textToSend.trim() || loading) return;
+
+    const userMessage = { text: textToSend, sender: 'user' };
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setLoading(true);
@@ -50,16 +58,12 @@ function Chatbot() {
     try {
       const response = await axios.post(
         'https://tuyaysolihin-chatbot.hf.space/chatbot',
-        { message: input },
+        { message: textToSend }, // Gunakan textToSend
         { headers: { 'Content-Type': 'application/json' } }
       );
 
       const botText = response.data.response;
-
-      const botMessage = {
-        text: botText,
-        sender: 'bot'
-      };
+      const botMessage = { text: botText, sender: 'bot' };
 
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
@@ -81,12 +85,11 @@ function Chatbot() {
     <div className="chatbot-container">
 
       <div className="chatbot-header">
-        <h1 className="chatbot-title">ASISTEN AII 🤖</h1>
+        <h1 className="chatbot-title">ASISTEN AI 🤖</h1>
         <p className="chatbot-subtitle">Tanyakan apa saja terkait data perusahaan</p>
       </div>
 
       <div className="chatbot-messages">
-
         {messages.length === 0 && (
           <div className="chatbot-welcome-message">
             <FiMessageSquare size={40} />
@@ -118,6 +121,20 @@ function Chatbot() {
         <div ref={messagesEndRef} />
       </div>
 
+      {/* ⬇️ BAGIAN BARU: MENU SUGGESTION */}
+      <div className="chatbot-menu-container">
+        {menuOptions.map((option, index) => (
+          <button 
+            key={index} 
+            className="menu-pill-button" 
+            onClick={() => sendMessage(option)}
+            disabled={loading}
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+
       <div className="chatbot-input-area">
         <input
           type="text"
@@ -130,7 +147,7 @@ function Chatbot() {
         />
         <button
           className="chatbot-send-button"
-          onClick={sendMessage}
+          onClick={() => sendMessage()}
           disabled={loading || input.trim() === ''}
         >
           <FiSend />
