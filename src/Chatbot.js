@@ -12,8 +12,8 @@ function Chatbot() {
   // ⬇️ DAFTAR MENU (Bisa Anda sesuaikan teksnya)
   const menuOptions = [
     "Apa itu data perusahaan?",
-    "Tampilkan laporan penjualan",
-    "Analisis tren terbaru",
+    "Tampilkan data aset perusahaan",
+    "Analisis data yang ada di database",
     "Hubungi support"
   ];
 
