@@ -173,26 +173,31 @@ body {
 
 /* --- TOMBOL MENU (Modern Black Pill) --- */
 .menu-pill-button {
-  /* Warna & Bentuk */
-  background-color: #1a1a1a; /* Hitam elegan (bukan hitam mati) */
-  color: #ffffff;            /* Teks putih */
-  border: none;              /* Hapus border default */
-  border-radius: 50px;       /* Membuat bentuk lonjong sempurna (Pill) */
+  /* Warna Dasar: Silver Transparan (Putih keabu-abuan) */
+  background: rgba(255, 255, 255, 0.65); 
   
-  /* Ukuran & Teks */
-  padding: 10px 20px;        /* Padding luas agar tombol terlihat "berisi" */
-  font-size: 0.9rem;         /* Ukuran font pas */
-  font-weight: 500;          /* Sedikit tebal agar mudah dibaca */
-  font-family: inherit;      /* Mengikuti font website */
-  
-  /* Efek Visual */
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Bayangan halus (Shadow) */
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Animasi halus */
-  
-  flex-shrink: 0; /* Pastikan tombol tidak mengecil/gepeng */
-}
+  /* Efek BLUR (Kaca Es) */
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 
+  /* Border tipis agar terlihat seperti kaca */
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  
+  /* Text Color: Hitam/Abu Gelap agar terbaca di atas silver */
+  color: #333;            
+
+  /* Bentuk Pill */
+  border-radius: 50px;       
+  padding: 8px 18px;        
+  font-size: 0.9rem;         
+  font-weight: 500;
+  cursor: pointer;
+  
+  /* Bayangan lembut */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); 
+  transition: all 0.3s ease;
+  flex-shrink: 0; 
+}
 /* --- EFEK HOVER (Saat Mouse Diarahkan) --- */
 .menu-pill-button:hover {
   /* Menjadi lebih solid (lebih putih/silver) */
