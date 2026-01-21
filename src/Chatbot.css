@@ -151,6 +151,47 @@ body {
   font-size: 1.2rem;
   color: var(--user-bubble-bg);
 }
+/* --- Tambahan untuk Menu --- */
+.chatbot-menu-container {
+  display: flex;
+  gap: 10px;
+  padding: 10px 15px;
+  background-color: #f9f9f9; /* Atau transparan jika background utama sudah berwarna */
+  overflow-x: auto; /* Agar bisa digeser jika menunya banyak */
+  white-space: nowrap;
+  border-top: 1px solid #eee;
+  
+  /* Sembunyikan scrollbar agar rapi */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.chatbot-menu-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.menu-pill-button {
+  background-color: #000; /* Warna Hitam sesuai request */
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px; /* Membuat bentuk pill/lonjong */
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  flex-shrink: 0; /* Mencegah tombol mengecil */
+}
+
+.menu-pill-button:hover {
+  background-color: #333; /* Sedikit lebih terang saat di-hover */
+  transform: translateY(-2px);
+}
+
+.menu-pill-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
 
 /* --- INPUT AREA --- */
 .chatbot-input-area {
