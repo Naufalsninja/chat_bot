@@ -13,8 +13,7 @@ function Chatbot() {
   const menuOptions = [
     "Apa itu data perusahaan?",
     "Tampilkan data aset perusahaan",
-    "Analisis data yang ada di database",
-    "Hubungi support"
+    "Analisis data yang ada di database"
   ];
 
   const scrollToBottom = () => {
